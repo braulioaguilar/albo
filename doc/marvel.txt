@@ -1,0 +1,10 @@
+Steps
+
+- Get charactes by query string (Iron Man, etc)
+
+http://gateway.marvel.com/v1/public/characters?apikey=my_api_key&ts=1688497908&hash=my_md5&nameStartsWith=Iron Man
+
+
+- Get comics on stories list
+
+https://gateway.marvel.com:443/v1/public/stories?apikey=my_api_key&ts=1688497908&hash=my_md5&characters=1009368,123
