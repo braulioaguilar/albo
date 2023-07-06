@@ -1,2 +1,5 @@
 services/colaborator/.vscode/*
 services/character/.vscode/*
+
+services/colaborator/tmp
+services/character/tmp
