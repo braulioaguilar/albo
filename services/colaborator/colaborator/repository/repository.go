@@ -22,7 +22,7 @@ func NewRepository(db *mongo.Database, ctx context.Context) *repository {
 }
 
 func (repo *repository) Get(character string) (*domain.Colaborator, error) {
-	filter := bson.D{}
+	filter := bson.D{{"name", character}}
 	options := options.FindOne().SetSort(bson.D{{"_id", -1}})
 
 	var colaborator domain.Colaborator
