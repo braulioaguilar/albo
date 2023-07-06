@@ -19,6 +19,6 @@ func (srv *colaboratorService) Get(character string) (*domain.Colaborator, error
 	return srv.Repo.Get(character)
 }
 
-func (srv *colaboratorService) Save(data *domain.Colaborator) error {
+func (srv *colaboratorService) Save(data []*domain.Colaborator) error {
 	return srv.Repo.Save(data)
 }

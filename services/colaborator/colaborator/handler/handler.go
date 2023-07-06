@@ -3,6 +3,7 @@ package handler
 import (
 	"albo/colaborator"
 	"albo/pkg/albohttp"
+	"albo/utils"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -19,10 +20,9 @@ func NewHandler(svr colaborator.Service) *handler {
 }
 
 func (h *handler) Get(ctx *gin.Context) {
-	heros := []string{"ironman", "capamerica"}
 	character, _ := ctx.Params.Get("character")
 
-	if !contains(heros, character) {
+	if !utils.Contains(utils.GetHeros(), character) {
 		ctx.JSON(http.StatusBadRequest, albohttp.Failure("Character not valid"))
 		return
 	}
@@ -34,14 +34,4 @@ func (h *handler) Get(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusOK, result)
-}
-
-func contains(s []string, str string) bool {
-	for _, v := range s {
-		if v == str {
-			return true
-		}
-	}
-
-	return false
 }

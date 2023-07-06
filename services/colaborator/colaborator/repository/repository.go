@@ -34,8 +34,13 @@ func (repo *repository) Get(character string) (*domain.Colaborator, error) {
 	return &colaborator, nil
 }
 
-func (repo *repository) Save(data *domain.Colaborator) error {
-	_, err := repo.db.Collection("colaborators").InsertOne(context.Background(), data)
+func (repo *repository) Save(colaborators []*domain.Colaborator) error {
+	var data []interface{}
+	for _, colaborator := range colaborators {
+		data = append(data, colaborator)
+	}
+
+	_, err := repo.db.Collection("colaborators").InsertMany(context.Background(), data)
 	if err != nil {
 		return err
 	}

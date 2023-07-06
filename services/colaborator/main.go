@@ -5,6 +5,7 @@ import (
 	"albo/colaborator/handler"
 	"albo/colaborator/repository"
 	"albo/colaborator/service"
+	c "albo/config"
 	"albo/pkg/mongo"
 	"albo/sync"
 	"context"
@@ -19,7 +20,7 @@ type Application struct {
 }
 
 func NewApplication() (*Application, error) {
-	db, _ := mongo.Connect()
+	db, _ := mongo.Connect(c.Config.MONGO_URL)
 	repo := repository.NewRepository(db, context.Background())
 
 	router := gin.New()

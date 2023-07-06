@@ -8,6 +8,7 @@ import (
 
 type Colaborator struct {
 	ID        primitive.ObjectID `bson:"_id"`
+	Character string             `bson:"name"`
 	CreatedAt time.Time          `bson:"created_at"`
 	Editor    []string           `bson:"editors"`
 	Writer    []string           `bson:"writers"`
