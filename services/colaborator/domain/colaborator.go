@@ -14,3 +14,10 @@ type Colaborator struct {
 	Writer    []string           `bson:"writers"`
 	Colorist  []string           `bson:"colorists"`
 }
+
+type ColaboratorDTO struct {
+	LastSync string   `json:"last_sync"`
+	Editor   []string `json:"editors"`
+	Writer   []string `json:"writers"`
+	Colorist []string `json:"colorists"`
+}
