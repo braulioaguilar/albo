@@ -19,9 +19,13 @@ type Application struct {
 	Service colaborator.Service
 }
 
-func NewApplication() (*Application, error) {
-	db, _ := mongo.Connect(c.Config.MONGO_URL)
-	repo := repository.NewRepository(db, context.Background())
+func NewApplication(ctx context.Context) (*Application, error) {
+	db, err := mongo.Connect(ctx, c.Config.MONGO_URI)
+	if err != nil {
+		panic(err)
+	}
+
+	repo := repository.NewRepository(db.Database(c.Config.DB_NAME), ctx)
 
 	router := gin.New()
 	router.Use(gin.Logger())
@@ -39,7 +43,8 @@ func (app *Application) Run() error {
 }
 
 func main() {
-	app, err := NewApplication()
+	ctx := context.Background()
+	app, err := NewApplication(ctx)
 	if err != nil {
 		log.Println(err)
 	}
@@ -48,6 +53,6 @@ func main() {
 	go sync.Marvel(app.Service)
 
 	if err := app.Run(); err != nil {
-		log.Panicln(err)
+		log.Panic(err)
 	}
 }

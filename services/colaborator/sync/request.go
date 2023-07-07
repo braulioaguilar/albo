@@ -1,7 +1,6 @@
 package sync
 
 import (
-	c "albo/config"
 	"albo/pkg/albohttp"
 	"errors"
 	"fmt"
@@ -29,12 +28,18 @@ type CharacterResponse struct {
 	} `json:"data"`
 }
 
+const (
+	TS         = "1688497908"
+	MARVEL_API = "http://gateway.marvel.com"
+	API_KEY    = "9b2f073ee571a47da65a782a644cfffa"
+	HASH       = "53c019e897a0467afba1614fdd342df9"
+)
+
 // Gets ID for specific character Iron Man and Captain America
 func getCharacterByName(name string, client *albohttp.Request) ([]byte, error) {
-
 	options := &albohttp.Options{
 		Method:   http.MethodGet,
-		Endpoint: fmt.Sprintf("%s/v1/public/characters?apikey=%s&ts=%s&hash=%s&name=%s", c.Config.MARVEL_API, c.Config.API_KEY, c.Config.TS, c.Config.HASH, name),
+		Endpoint: fmt.Sprintf("%s/v1/public/characters?apikey=%s&ts=%s&hash=%s&name=%s", MARVEL_API, API_KEY, TS, HASH, name),
 	}
 
 	res, err := client.MakeRequest(options)
@@ -83,7 +88,7 @@ type StoryResponse struct {
 func getStoriesByCharacterId(characterId int, client *albohttp.Request) ([]byte, error) {
 	options := &albohttp.Options{
 		Method:   http.MethodGet,
-		Endpoint: fmt.Sprintf("%s/v1/public/stories?apikey=%s&ts=%s&hash=%s&characters=%d", c.Config.MARVEL_API, c.Config.API_KEY, c.Config.TS, c.Config.HASH, characterId),
+		Endpoint: fmt.Sprintf("%s/v1/public/stories?apikey=%s&ts=%s&hash=%s&characters=%d", MARVEL_API, API_KEY, TS, HASH, characterId),
 	}
 
 	res, err := client.MakeRequest(options)
@@ -131,10 +136,9 @@ type ComicResponse struct {
 }
 
 func getComicsByStori(CollectionURI string, client *albohttp.Request) ([]byte, error) {
-
 	options := &albohttp.Options{
 		Method:   http.MethodGet,
-		Endpoint: fmt.Sprintf("%s?apikey=%s&ts=%s&hash=%s", CollectionURI, c.Config.API_KEY, c.Config.TS, c.Config.HASH),
+		Endpoint: fmt.Sprintf("%s?apikey=%s&ts=%s&hash=%s", CollectionURI, API_KEY, TS, HASH),
 	}
 
 	res, err := client.MakeRequest(options)

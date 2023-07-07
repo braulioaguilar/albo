@@ -7,31 +7,22 @@ import (
 )
 
 type config struct {
-	MARVEL_API string
-	MONGO_URL  string
-	API_KEY    string
-	HASH       string
-	TS         string
-	DURATION   int
+	MONGO_URI string
+	DB_NAME   string
+	DURATION  int
 }
 
 var Config config
 
 func init() {
 	viper.AutomaticEnv()
-	viper.BindEnv("MARVEL_API")
-	viper.BindEnv("MONGO_URL")
-	viper.BindEnv("API_KEY")
-	viper.BindEnv("HASH")
-	viper.BindEnv("TS")
+	viper.BindEnv("MONGO_URI")
 	viper.BindEnv("DURATION")
+	viper.BindEnv("DB_NAME")
 
-	viper.SetDefault("MARVEL_API", "http://gateway.marvel.com")
-	viper.SetDefault("MONGO_URL", "mongodb://localhost:27017")
-	viper.SetDefault("API_KEY", "9b2f073ee571a47da65a782a644cfffa")
-	viper.SetDefault("HASH", "53c019e897a0467afba1614fdd342df9")
-	viper.SetDefault("TS", "1688497908")
+	viper.SetDefault("MONGO_URI", "mongodb://mongo_albo:27017/admin?authSource=admin")
 	viper.SetDefault("DURATION", 60)
+	viper.SetDefault("DB_NAME", "albo")
 
 	if err := viper.Unmarshal(&Config); err != nil {
 		log.Panicf("Error unmarshalling configuration: %s", err)

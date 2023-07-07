@@ -1,19 +1,37 @@
-version: "3"
+version: "3.8"
 services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo_albo
+    ports:
+      - "27100:27017"
+    volumes:
+      - mongodata:/data/db
+    restart: always
+    networks:
+      - albo
   colaborator:
     build:
       context: ../services/colaborator
       dockerfile: Dockerfile
-    container_name: service_a
+    container_name: colaborator_service
     ports:
       - "8080:8080"
+    networks:
+      - albo
+    depends_on:
+      - mongo
   character:
     build:
       context: ../services/character
       dockerfile: Dockerfile
-    container_name: service_b
+    container_name: character_service
     ports:
       - "9090:9090"
+    networks:
+      - albo
+    depends_on:
+      - mongo
   nginx:
     image: nginx:latest
     container_name: "nginx_container"
@@ -25,3 +43,9 @@ services:
       - colaborator
       - character
     network_mode: host
+volumes:
+  mongodata:
+
+networks:
+  albo:
+    driver: bridge
