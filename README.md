@@ -7,10 +7,12 @@ Syncs marvel comics to local and we expose the data.
 [Colaboratos service](/services/colaborator/README.md)
 - Golang (Gin)
 - NoSQL (mongodb)
+- DB Sync (goroutine)
 
 [Characters service](/services/character/README.md)
 - Node (Nestjs)
 - NoSQL (mongodb)
+- DB Sync (onModuleInit)
 
 ## Environment variables 
 

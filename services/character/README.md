@@ -14,3 +14,7 @@ $ yarn run start:dev
 # production mode
 $ yarn run start:prod
 ```
+
+## Sync
+
+Added db sync at `onModuleInit`
