@@ -6,7 +6,7 @@ import { CharacterSchema } from './schema/character.schema';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost:27017/albo'),
+    MongooseModule.forRoot('mongodb://mongo_albo:27017/albo'),
     MongooseModule.forFeature([{ name: 'Character', schema: CharacterSchema }])
   ],
   controllers: [AppController],

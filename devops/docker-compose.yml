@@ -7,7 +7,7 @@ services:
       - colaborator
       - character
     volumes:
-      - ./proxy/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx.conf:/etc/nginx/nginx.conf
     ports:
       - "80:80"
     links:
@@ -44,9 +44,7 @@ services:
       dockerfile: Dockerfile
     container_name: character_service
     ports:
-      - "9090:9090"
-    volumes:
-      - ./nest/nginx.conf:/etc/nginx/nginx.conf
+      - "3000:3000"
     networks:
       - albo
     depends_on:
