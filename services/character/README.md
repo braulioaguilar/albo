@@ -1,4 +1,6 @@
-# Characters
+# Characters Service
+
+This service is exposed at `:3000` port as individual app.
 
 ## Running the app
 
