@@ -1,26 +1,11 @@
-ARG BASE_IMAGE=golang:1.20.0-alpine3.16
+FROM node:latest as build-stage
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY ./ .
+RUN npm run build
 
-FROM ${BASE_IMAGE} AS builder
-
-WORKDIR /go/src
-
-ADD . /go/src/
-
-RUN go mod download && go mod verify
-
-RUN go build -v -o /character ./cmd/*.go
-
-FROM ${BASE_IMAGE} AS candidate
-
-ARG NAME=character
-
-# Install nice to haves
-RUN apk add --no-cache openssl ncurses-libs libstdc++ libgcc curl libressl htop nano
-
-WORKDIR /go/src/
-
-COPY --from=builder /$NAME .
-
-EXPOSE 9090
-
-ENTRYPOINT ["./character"]
+FROM nginx as production-stage
+RUN mkdir /app
+COPY --from=build-stage /app/dist /app
+COPY nginx.conf /etc/nginx/nginx.conf
