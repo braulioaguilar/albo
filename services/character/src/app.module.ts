@@ -2,12 +2,14 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { CharacterService } from './character/character.service';
-import { CharacterController } from './character/character.controller';
+import { CharacterSchema } from './schema/character.schema';
 
 @Module({
-  imports: [MongooseModule.forRoot('mongodb://localhost:27017/albo')],
-  controllers: [AppController, CharacterController],
-  providers: [AppService, CharacterService],
+  imports: [
+    MongooseModule.forRoot('mongodb://localhost:27017/albo'),
+    MongooseModule.forFeature([{ name: 'Character', schema: CharacterSchema }])
+  ],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
