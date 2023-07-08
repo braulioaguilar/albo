@@ -27,7 +27,7 @@ services:
       - albo
   colaborator:
     build:
-      context: ../services/colaborator
+      context: ./services/colaborator
       dockerfile: Dockerfile
     container_name: colaborator_service
     environment:
@@ -40,7 +40,7 @@ services:
       - mongo
   character:
     build:
-      context: ../services/character
+      context: ./services/character
       dockerfile: Dockerfile
     container_name: character_service
     ports:
