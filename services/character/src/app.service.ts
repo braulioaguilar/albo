@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Character } from 'src/schema/character.schema';
 
+// TODO: move to env file
 const MARLVEL_API = 'http://gateway.marvel.com/v1/public/';
 const TS = '1688497908';
 const API_KEY = '9b2f073ee571a47da65a782a644cfffa';
